@@ -31,34 +31,42 @@ public class SchoolController {
                     case 3: {
                         Scanner scan = new Scanner(System.in);
                         sc.createStudent(scan);
+                        break;
                     }
                     case 4: {
                         Scanner scan = new Scanner(System.in);
                         sc.createClas(scan);
+                        break;
                     }
                     case 5: {
                         Scanner scan = new Scanner(System.in);
                         sc.retrieveStudentclasses(scan);
+                        break;
                     }
                     case 6: {
                         Scanner scan = new Scanner(System.in);
                         sc.retrieveClasstudents(scan);
+                        break;
                     }
                     case 7: {
                         Scanner scan = new Scanner(System.in);
                         sc.assignStudent(scan);
+                        break;
                     }
                     case 8: {
                         Scanner scan = new Scanner(System.in);
                         sc.removeStudent(scan);
+                        break;
                     }
                     case 9: {
                         Scanner scan = new Scanner(System.in);
                         sc.deleteStudent(scan);
+                        break;
                     }
                     case 10: {
                         Scanner scan = new Scanner(System.in);
                         sc.deleteClas(scan);
+                        break;
                     }
                     default:
                         System.out.println("Input an option 1-10");

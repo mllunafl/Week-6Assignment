@@ -36,38 +36,44 @@ public class StudentClasDao {
         }
     }
 
-    public static List<Clas> retrieveClas(int student_id, Connection conn) throws SQLException {
-        ResultSet rsult=null;
+    public static List<Clas> retrieveClas(int student_id, Connection conn) {
+        List<Clas> clasList = new ArrayList<>();
+        try {
+            ResultSet rsult=null;
             String listStudclas = "select c.name from clas c, student s, student_clas sc WHERE s.student_id = sc.student_id and c.clas_id = sc.clas_id and s.student_id = ?";
             PreparedStatement pStmt = conn.prepareStatement(listStudclas);
-            String id = Integer.toString(student_id);
-            pStmt.setString(1, id);
+            pStmt.setInt(1,student_id);
             rsult = pStmt.executeQuery();
-            List<Clas> clasList = new ArrayList<>();
             while (rsult.next()){
                 Clas clas = new Clas();
                 clas.setName(rsult.getString("name"));
                 clasList.add(clas);
             }
             return clasList;
+        } catch (SQLException e) {
+            DatabaseUtils.printSQLException(e);
+        }
+            return clasList;
     }
 
-    public static List<Student> retrieveStudents(int clas_id, Connection conn) throws SQLException {
-        ResultSet rsult=null;
-        String listClasstudents = "select s.name from student s, clas c, student_clas sc WHERE s.student_id = sc.student_id and c.clas_id = sc.clas_id and c.clas_id = ?";
-        PreparedStatement pStmt = conn.prepareStatement(listClasstudents);
-        pStmt.setInt(1, clas_id);
-        rsult = pStmt.executeQuery();
+    public static List<Student> retrieveStudents(int clas_id, Connection conn) {
         List<Student> students = new ArrayList<>();
-        while (rsult.next()){
-            Student student = new Student();
-            student.setName(rsult.getString("s.name"));
-            students.add(student);
+        try {
+            ResultSet rsult=null;
+            String listClasstudents = "select s.name from student s, clas c, student_clas sc WHERE s.student_id = sc.student_id and c.clas_id = sc.clas_id and c.clas_id = ?";
+            PreparedStatement pStmt = conn.prepareStatement(listClasstudents);
+            pStmt.setInt(1, clas_id);
+            rsult = pStmt.executeQuery();
+            while (rsult.next()){
+                Student student = new Student();
+                student.setName(rsult.getString("s.name"));
+                students.add(student);
+            }
+            return students;
+        } catch (SQLException e) {
+            DatabaseUtils.printSQLException(e);
         }
         return students;
     }
 
-    public static void main(String[] args) throws SQLException {
-
-    }
 }
